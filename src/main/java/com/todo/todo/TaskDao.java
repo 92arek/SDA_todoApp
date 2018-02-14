@@ -1,30 +1,32 @@
 package com.todo.todo;
 
-import java.sql.Connection;
+import javax.sql.DataSource;
 import java.sql.SQLException;
 
 import static java.lang.String.format;
 
+//todo implement all DAOs
 public class TaskDao {
 
-    public static final String INSERT = "INSERT IN tasks (name) VALUES ('%s')";
-    public static final String MARK_COMPLETED = "UPDATE tasks SET completed_by = %s, completed_at=now() WHERE id = %s";
-    public static final String REMOVE_COMPLETED = "delete from tasks where completed_by is not null";
-    private Connection con;
+    public static final String INSERT = "insert into tasks (name) values ('%s')";
+    public static final String MARK_COMPLETED = "update tasks set completed_by = %s, " +
+            "completed_at=now() where id = %s";
+    public static final String REMOVE_COMPLETED = "DELETE FROM tasks WHERE completed_by IS NOT NULL";
+    private DataSource ds;
 
-    public TaskDao(Connection con) {
-        this.con = con;
+    public TaskDao(DataSource ds) {
+        this.ds = ds;
     }
 
     public void save(String name) throws SQLException {
-        con.createStatement().executeUpdate(format(INSERT, name));
+        ds.getConnection().createStatement().executeUpdate(format(INSERT, name));
     }
 
     public void markAsDone(Long taskId, Long userId) throws SQLException {
-        con.createStatement().executeUpdate(format(MARK_COMPLETED, userId, taskId));
+        ds.getConnection().createStatement().executeUpdate(format(MARK_COMPLETED, userId, taskId));
     }
 
     public void removeCompleted() throws SQLException {
-        con.createStatement().executeUpdate(REMOVE_COMPLETED);
+        ds.getConnection().createStatement().executeUpdate(REMOVE_COMPLETED);
     }
 }
