@@ -27,6 +27,10 @@ public class UserDaoJooq {
 
 
     public void save(User user) {
+        //v1
+        dslc.newRecord(USERS, user).store();
+
+        //v2
         dslc.insertInto(USERS).columns(USERS.LOGIN, USERS.PASSWORD)
                 .values(user.getLogin(), user.getPassword()).execute();
     }
