@@ -1,4 +1,4 @@
-package com.todo.todo;
+package task;
 
 public class TaskHistoryDao {
 }

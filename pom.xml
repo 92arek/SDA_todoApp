@@ -48,6 +48,9 @@
                             <packageName>com.todo.db</packageName>
                             <directory>target/generated-sources/jooq</directory>
                         </target>
+                        <generate>
+                            <javaTimeTypes>true</javaTimeTypes>
+                        </generate>
                     </generator>
                 </configuration>
             </plugin>

@@ -1,4 +1,4 @@
-package com.todo.todo;
+package task;
 
 import javax.sql.DataSource;
 import java.sql.SQLException;
